@@ -8,8 +8,8 @@ But all this approaches have significant disadvantages.
 For example talking about whitelist we instantly stumbleupon few problems:
  - it's nearly non-scalable, if you want to connect it to some service it would be very challenging
  - for newcomers it's hard to get in touch with players to ask them .
- - hard toi localize
- 
+ - hard to localize
+
 So invite guard intended to solve this prolems.
 
 ## how to use
@@ -21,6 +21,6 @@ So invite guard intended to solve this prolems.
 - [ ] multi client servers
 - [ ] improve command interface
 - [ ] make more fault tolerant
-    - by that i mean try keep 
+    - by that i mean try to restore connection when one of servers fall down
 - [ ] make log messages more clear 
 - [ ] make separate server for that  
