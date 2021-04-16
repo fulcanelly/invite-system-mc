@@ -9,6 +9,7 @@ For example talking about whitelist we instantly stumbleupon few problems:
  - it's nearly non-scalable, if you want to connect it to some service it would be very challenging
  - for newcomers it's hard to get in touch with players to ask them .
  - hard toi localize
+ 
 So invite guard intended to solve this prolems.
 
 ## how to use
