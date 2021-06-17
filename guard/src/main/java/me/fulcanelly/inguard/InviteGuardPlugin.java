@@ -19,12 +19,16 @@ public class InviteGuardPlugin extends JavaPlugin {
 
     @Override @SneakyThrows
     public void onEnable() {
-        Guice.createInjector(new MainModule(this))
-            .getInstance(RequestPlanner.class).start();
+        var planner = Guice.createInjector(new MainModule(this))
+            .getInstance(RequestPlanner.class);
+        planner.start();
             
         getServer().getPluginManager()
             .registerEvents(new PlayerMotionPreventor(), this);
 
+        getServer().getPluginManager()
+            .registerEvents(planner, this);
+            
         getServer().getMessenger()
             .registerOutgoingPluginChannel(this, "BungeeCord"); 
     }
