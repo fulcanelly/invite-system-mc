@@ -31,6 +31,10 @@ public class MainModule extends AbstractModule {
         bindConstant()
             .annotatedWith(Names.named("executor.interval"))
             .to(300);
+
+        bindConstant()
+            .annotatedWith(Names.named("max ping before die"))
+            .to(3l);
             
         bindConstant()
             .annotatedWith(Names.named("sender.delay"))
