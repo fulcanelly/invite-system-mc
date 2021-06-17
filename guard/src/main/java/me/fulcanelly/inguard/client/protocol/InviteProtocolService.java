@@ -20,13 +20,13 @@ public class InviteProtocolService implements InviteProtocol {
     @Inject
     InviteProtocolLogger logger;
 
-    public synchronized void pingKeepAlive() throws NeedRequestRepeatException {
+    public synchronized void pingKeepAlive() {
         logger.logPing();
         io.println("p");
         io.readLine();
     }
 
-    public synchronized boolean checkIsInvited(String player) throws NeedRequestRepeatException {
+    public synchronized boolean checkIsInvited(String player) {
         logger.logIniteCheckFor(player);
         io.println("?");
         io.println(player);
