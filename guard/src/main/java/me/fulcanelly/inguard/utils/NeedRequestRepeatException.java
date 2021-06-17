@@ -1,5 +1,5 @@
 package me.fulcanelly.inguard.utils;
 
-public class NeedRequestRepeatException extends Exception {
+public class NeedRequestRepeatException extends RuntimeException {
     
 }
