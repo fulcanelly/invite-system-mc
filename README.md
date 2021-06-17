@@ -31,3 +31,4 @@ So invite guard intended to solve this prolems.
 
 - title blinking
 - warnging on login
+- make it spam less(make logging more slient or remove action traffic)
