@@ -53,7 +53,7 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     Server server;
     
     @Inject
-    SafeInviteProtocolService protocol;
+    InviteProtocol protocol;
      
     protected abstract void handlePlayer(Player player);
     protected abstract void onEmptyServer();
