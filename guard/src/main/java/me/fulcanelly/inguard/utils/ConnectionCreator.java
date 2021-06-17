@@ -29,6 +29,7 @@ public class ConnectionCreator {
             return null;
         }
     }
+      /*
 
     void showStackTrace() {
         try {
@@ -37,12 +38,12 @@ public class ConnectionCreator {
             e.printStackTrace();
         }
     }
-
+*/
     @SneakyThrows
     public Socket connect() {
         Socket conn;
         int attemt = 0;
-        showStackTrace();
+     ///   showStackTrace();
         do {
             logger.logAttemtToConnect(attemt);
             conn = obtainConnection();
