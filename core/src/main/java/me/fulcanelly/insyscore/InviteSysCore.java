@@ -57,7 +57,9 @@ public class InviteSysCore extends JavaPlugin  {
         
         this.getLogger().info("seting up server");
         
-        var server = new InviteCheckerServer(database, this.getLogger());
+        var server = new InviteCheckerServer(
+            new ServerSocket(6997), database, this.getLogger()
+        );
         //starting tcp server, currently on 6997 port
 
         toStop = new Stopable [] { database, server };
@@ -65,9 +67,8 @@ public class InviteSysCore extends JavaPlugin  {
 
         var commands = new UserInteractionHandler(database);
         //sort of minecraft cli
-        
-        //this.getCommand("invite").setExecutor(commands);;
-        new Thread(server::start).start();
+        server.start();
+        this.getCommand("invite").setExecutor(commands);;
    
     }
 
