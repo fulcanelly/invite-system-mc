@@ -16,4 +16,9 @@ public class RequestPlannerLogger extends TargetLogger {
         println("handling empty server");
     }
 
+    public void logShuttingDown() {
+        println("shuting sown task");
+
+    }
+
 }
