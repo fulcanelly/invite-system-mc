@@ -20,14 +20,28 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import me.fulcanelly.inguard.client.protocol.SafeInviteProtocolService;
 import me.fulcanelly.inguard.logger.LoopedPlayerExecutorLogger;
 
-@interface test {}
+import java.util.concurrent.ScheduledFuture;
 
 @Data
 public abstract class PlayersSpecificScheduledTaskExecutor {
 
-    ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+    protected ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+    protected boolean isRuning = true;
+
+    protected void shutDown() {
+        isRuning = false;
+    }
+
+    protected boolean isRuning() {
+        return isRuning;
+    }
+
+    protected void runAgaing() {
+        isRuning = true;
+    }
 
     @Inject @Named("executor.interval")
     Integer interval;    
@@ -37,7 +51,10 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
 
     @Inject
     Server server;
-
+    
+    @Inject
+    SafeInviteProtocolService protocol;
+     
     protected abstract void handlePlayer(Player player);
     protected abstract void onEmptyServer();
 
@@ -55,13 +72,16 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     }  
 
     private final void safeInteraval() {
+        if (!isRuning) {
+            return;
+        }
         try {
-            onEachInterval();
+            protocol.exeucteSafelyProtocolRequest(this::onEachInterval);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public void start() {
         logger.logSettingUp();
         service.scheduleAtFixedRate(this::safeInteraval, 0, interval, TimeUnit.MILLISECONDS);
