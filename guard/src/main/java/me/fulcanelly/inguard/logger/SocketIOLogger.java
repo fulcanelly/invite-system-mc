@@ -18,7 +18,7 @@ public class SocketIOLogger extends TargetLogger {
         println("connecting to socket");
     }
 
-    public void logGotTimout() {
+    public void logGotIOException() {
         println("got timeout");
 
     }

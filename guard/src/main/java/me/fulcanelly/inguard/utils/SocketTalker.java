@@ -1,6 +1,7 @@
 package me.fulcanelly.inguard.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -45,11 +46,11 @@ public class SocketTalker {
 
   
     @SneakyThrows
-    protected String timeoutFreeReadLine() {
+    protected String ioExceptionFreeReadLine() {
         try {
             return in.readLine();
-        } catch(SocketTimeoutException e) {
-            logger.logGotTimout();
+        } catch(IOException e) {
+            logger.logGotIOException();
             return null;
         }
     }
@@ -57,7 +58,7 @@ public class SocketTalker {
     @SneakyThrows
     public String readLine() {
         logger.logReadingLine();
-        var result = timeoutFreeReadLine();     
+        var result = ioExceptionFreeReadLine();     
         if (result == null) {
             throw new NeedRequestRepeatException();
         } else {
