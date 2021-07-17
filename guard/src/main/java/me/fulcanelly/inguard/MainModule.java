@@ -12,7 +12,6 @@ import lombok.SneakyThrows;
 import me.fulcanelly.inguard.client.RequestPlanner;
 import me.fulcanelly.inguard.client.protocol.InviteProtocol;
 import me.fulcanelly.inguard.client.protocol.InviteProtocolService;
-import me.fulcanelly.inguard.client.protocol.SafeInviteProtocolService;
 import me.fulcanelly.inguard.logger.SocketIOLogger;
 import me.fulcanelly.inguard.utils.ConnectionCreator;
 import me.fulcanelly.inguard.utils.PlayersSpecificScheduledTaskExecutor;
@@ -33,6 +32,10 @@ public class MainModule extends AbstractModule {
             .to(300);
 
         bindConstant()
+            .annotatedWith(Names.named("insurer.max_attempts"))
+            .to(5);
+
+        bindConstant()
             .annotatedWith(Names.named("max ping before die"))
             .to(3l);
             
@@ -50,7 +53,7 @@ public class MainModule extends AbstractModule {
         );
     
         bind(InviteProtocol.class)
-            .to(SafeInviteProtocolService.class)
+            .to(InviteProtocolService.class)
             .in(Scopes.SINGLETON);
 
         bind(PlayersSpecificScheduledTaskExecutor.class).to(RequestPlanner.class);

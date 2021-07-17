@@ -20,8 +20,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import me.fulcanelly.inguard.client.protocol.SafeInviteProtocolService;
-import me.fulcanelly.inguard.logger.LoopedPlayerExecutorLogger;
+import me.fulcanelly.inguard.client.protocol.InviteProtocol;
+import me.fulcanelly.inguard.client.protocol.ProtocolRequestInsurer;
+import me.fulcanelly.inguard.logger.PlayersLoopedPlayerExecutorLogger;
 
 import java.util.concurrent.ScheduledFuture;
 
@@ -55,6 +56,9 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     @Inject
     InviteProtocol protocol;
      
+    @Inject
+    ProtocolRequestInsurer insurer;
+
     protected abstract void handlePlayer(Player player);
     protected abstract void onEmptyServer();
 
@@ -76,7 +80,7 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
             return;
         }
         try {
-            protocol.exeucteSafelyProtocolRequest(this::onEachInterval);
+            insurer.exeucteSafelyProtocolRequest(this::onEachInterval);
         } catch(Exception e) {
             e.printStackTrace();
         }
