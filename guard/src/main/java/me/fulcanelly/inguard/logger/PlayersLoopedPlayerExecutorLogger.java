@@ -2,10 +2,10 @@ package me.fulcanelly.inguard.logger;
 
 import lombok.NonNull;
 
-public class LoopedPlayerExecutorLogger extends TargetLogger {
+public class PlayersLoopedPlayerExecutorLogger extends TargetLogger {
 
-    public LoopedPlayerExecutorLogger() {
-        super("LoopedPlayerExecutor");
+    public PlayersLoopedPlayerExecutorLogger() {
+        super("PlayersLoopedPlayerExecutorLogger");
     }
 
     public void logSettingUp() {

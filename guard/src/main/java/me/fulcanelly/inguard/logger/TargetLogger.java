@@ -20,7 +20,7 @@ public abstract class TargetLogger {
         var current = Thread.currentThread();
         var wasName = current.getName();
         current.setName(self);
-        out.println(line);
+        out.println("[" + self + "]: " + line);
         current.setName(wasName);
     }
 }

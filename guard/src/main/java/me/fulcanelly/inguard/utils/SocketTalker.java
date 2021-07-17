@@ -50,7 +50,7 @@ public class SocketTalker {
         try {
             return in.readLine();
         } catch(IOException e) {
-            logger.logGotIOException();
+            logger.logGotIOException(e);
             return null;
         }
     }

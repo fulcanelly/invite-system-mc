@@ -13,11 +13,15 @@ public class InviteProtocolLogger extends TargetLogger {
     }
 
     public void logIniteCheckFor(String player) {
-        println("checkign is " + player + "invited");
+        println("checkign is " + player + " invited");
     }
 
-    public void getRequestProblem() {
+    public void logGotRequestProblem() {
         println("get problem while executing request, trying again");
+    }
+
+    public void logPoorAttempt() {
+        println("all attemts was unsuccessfull, stop trying");
     }
     
 }

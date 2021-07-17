@@ -1,5 +1,7 @@
 package me.fulcanelly.inguard.logger;
 
+import java.io.IOException;
+
 public class SocketIOLogger extends TargetLogger {
     
     public SocketIOLogger() {
@@ -18,8 +20,8 @@ public class SocketIOLogger extends TargetLogger {
         println("connecting to socket");
     }
 
-    public void logGotIOException() {
-        println("got timeout");
-
+    public void logGotIOException(IOException e) {
+        println("got io exc: " + e);
+        e.printStackTrace();
     }
 }

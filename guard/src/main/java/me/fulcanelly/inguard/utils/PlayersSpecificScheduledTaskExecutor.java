@@ -47,7 +47,7 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     Integer interval;    
     
     @Inject
-    LoopedPlayerExecutorLogger logger;
+    PlayersLoopedPlayerExecutorLogger logger;
 
     @Inject
     Server server;

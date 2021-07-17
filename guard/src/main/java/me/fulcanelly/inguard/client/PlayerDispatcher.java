@@ -12,6 +12,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import me.fulcanelly.inguard.client.protocol.InviteProtocol;
+import me.fulcanelly.inguard.logger.PlayerDispatcherLogger;
 
 @Data
 class PlayerDispatcher {
@@ -25,8 +26,12 @@ class PlayerDispatcher {
     @Inject
     FoolConstantAnnouncmentSender sender;
     
+    @Inject 
+    PlayerDispatcherLogger logger;
+    
     @SneakyThrows
     void passToMainServer(Player player) {
+        logger.logPassingPlayerToServer();
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Connect");
         out.writeUTF("main");
