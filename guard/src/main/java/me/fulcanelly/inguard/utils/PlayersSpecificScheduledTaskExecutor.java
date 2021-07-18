@@ -69,7 +69,7 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     protected void onEachInterval() {
         logger.logProcessingInterval();
       
-        var onlinePlayers = pipe.getPlayersToHandle();
+        var onlinePlayers = new LinkedList<>(pipe.getPlayersToHandle());
 
         if (onlinePlayers.size() > 0) {
             onlinePlayers.parallelStream()
