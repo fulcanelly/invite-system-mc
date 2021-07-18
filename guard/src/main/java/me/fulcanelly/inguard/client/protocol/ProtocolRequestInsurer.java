@@ -27,7 +27,7 @@ public class ProtocolRequestInsurer {
                 runableWithRequest.run();
                 return;
             } catch (NeedRequestRepeatException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
                 logger.logGotRequestProblem();
                 io.reconnect();
             }
