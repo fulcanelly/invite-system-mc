@@ -61,7 +61,7 @@ class PlayerActionDelayControl {
 
 }
 
-class FoolConstantAnnouncmentSender implements PlayerSender {
+public class FoolConstantAnnouncmentSender implements PlayerSender {
 
     TitleSender titleSender = new TitleSender("§4You are not invited", "§6check out chat for details");
 
