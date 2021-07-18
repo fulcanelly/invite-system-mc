@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import me.fulcanelly.inguard.client.PlayerFlowPipe;
 import me.fulcanelly.inguard.client.protocol.InviteProtocol;
 import me.fulcanelly.inguard.client.protocol.ProtocolRequestInsurer;
 import me.fulcanelly.inguard.logger.PlayersLoopedPlayerExecutorLogger;
@@ -59,13 +60,16 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     @Inject
     ProtocolRequestInsurer insurer;
 
+    @Inject
+    PlayerFlowPipe pipe;
+
     protected abstract void handlePlayer(Player player);
     protected abstract void onEmptyServer();
 
     protected void onEachInterval() {
         logger.logProcessingInterval();
       
-        var onlinePlayers = server.getOnlinePlayers();
+        var onlinePlayers = pipe.getPlayersToHandle();
 
         if (onlinePlayers.size() > 0) {
             onlinePlayers.parallelStream()

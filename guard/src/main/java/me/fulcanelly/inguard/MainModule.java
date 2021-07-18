@@ -1,7 +1,9 @@
 package me.fulcanelly.inguard;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.Scopes;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
 import org.bukkit.Server;
@@ -9,6 +11,7 @@ import org.bukkit.plugin.Plugin;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import me.fulcanelly.inguard.client.PlayerFlowPipe;
 import me.fulcanelly.inguard.client.RequestPlanner;
 import me.fulcanelly.inguard.client.protocol.InviteProtocol;
 import me.fulcanelly.inguard.client.protocol.InviteProtocolService;
@@ -24,6 +27,7 @@ public class MainModule extends AbstractModule {
 
     @Override @SneakyThrows
     public void configure() {
+        bind(PlayerFlowPipe.class).toInstance(new PlayerFlowPipe());
         bind(Plugin.class).toInstance(plugin);
         bind(Server.class).toInstance(plugin.getServer());
 
