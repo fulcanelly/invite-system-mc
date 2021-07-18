@@ -26,6 +26,9 @@ class PlayerDispatcher {
     @Inject
     FoolConstantAnnouncmentSender sender;
   
+    @Inject
+    PlayerFlowPipe pipe;
+
     /*
     implements PluginMessageListener 
     @Override
@@ -95,6 +98,7 @@ class PlayerDispatcher {
         out.writeUTF("Connect");
         out.writeUTF("main");
         player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        pipe.remove(player);
     }
 
     void onPlayerUnknown(Player player) {

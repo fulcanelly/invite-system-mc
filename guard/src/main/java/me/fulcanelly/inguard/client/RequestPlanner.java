@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -36,6 +37,9 @@ public class RequestPlanner extends PlayersSpecificScheduledTaskExecutor impleme
     @Inject
     PlayerDispatcher dispatcher;
     
+    @Inject
+    PlayerFlowPipe pipe;
+
     @Override
     protected void handlePlayer(Player player) {
         logger.logHadnlingPlayer();
@@ -64,10 +68,15 @@ public class RequestPlanner extends PlayersSpecificScheduledTaskExecutor impleme
 
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent event) {
+        pipe.addToPipe(event.getPlayer());
         if (!isRuning()) {
             runAgaing();
         }
-    
+    }
+
+    @EventHandler
+    void onPlayerLeft(PlayerQuitEvent event) {
+        pipe.remove(event.getPlayer());
     }
     
 } 
