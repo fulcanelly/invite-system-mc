@@ -1,5 +1,8 @@
 package me.fulcanelly.inguard;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
@@ -52,9 +55,11 @@ public class MainModule extends AbstractModule {
                 new ConnectionCreator("localhost", 6997, 3000)
             );
     
-        bind(SocketTalker.class).toConstructor(
-            SocketTalker.class.getConstructor(ConnectionCreator.class, SocketIOLogger.class)
-        );
+        bind(SocketTalker.class)
+            .toConstructor(
+                SocketTalker.class.getConstructor(ConnectionCreator.class, SocketIOLogger.class)
+            )
+            .in(Scopes.SINGLETON);
     
         bind(InviteProtocol.class)
             .to(InviteProtocolService.class)
