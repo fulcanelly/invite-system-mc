@@ -20,15 +20,14 @@ So invite guard intended to solve this prolems.
     - [ ] actions (kick/redirect/message/etc)
 - [ ] multi client servers
 - [ ] improve command interface
-- [+] make more fault tolerant
+- [x] make more fault tolerant
     - by that i mean try to restore connection when one of servers fall down
 - [ ] make log messages more clear 
 - [ ] make separate server for that  
-
+- [ ] make it spam less(make logging more slient or remove action traffic)
 
 ## Probems
 
 
 - title blinking
 - warnging on login
-- make it spam less(make logging more slient or remove action traffic)
