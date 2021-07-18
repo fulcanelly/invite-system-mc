@@ -1,6 +1,6 @@
 package me.fulcanelly.inguard.client;
 
-import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.*;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
 
@@ -25,6 +25,65 @@ class PlayerDispatcher {
     
     @Inject
     FoolConstantAnnouncmentSender sender;
+  
+    /*
+    implements PluginMessageListener 
+    @Override
+    public void onEnable() {
+      this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+     this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+     }
+
+
+    @SneakyThrows
+    boolean isPlayerOnServer(Player player, String targetServer) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("GetServer");
+        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        String servername = in.readUTF();
+        return servername.equals(targetServer);
+    }
+
+    
+    void passToServer(Player player, String server) {
+        while (!isPlayerOnServer(player, server)) {
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            out.writeUTF("Connect");
+            out.writeUTF(server);
+            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        }
+    }
+
+    class AssociatedMessageExecutor {
+        Consumer<ByteArrayDataInput> consumer;
+        String channel;
+        Player player;
+        
+        boolean isItRightExecutor(String c, Player p) {
+            return channel.equals(c) && player.getName().equals(p.getName());
+        }
+        
+    }
+    
+    @Inject
+    BlockingList<AccosiatedMessageExecutor> associated; 
+    
+    //better create separate class for bungeecord purpose 
+    @Override
+    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+        ByteArrayDataInput in = ByteStreams.newDataInput(message);
+        associated.stream()
+            .filter(e -> e.isItRightExecutor(in.readUTF(), player)
+            .forEach();
+        String subchannel = ;
+         if (!channel.equals("BungeeCord")) {
+             ByteArrayDataInput in = ByteStreams.newDataInput(message);
+             String servername = in.readUTF();
+         }
+    }
+    
+
+    */
     
     @Inject 
     PlayerDispatcherLogger logger;
