@@ -39,7 +39,7 @@ public class PluginTest {
         new Thread(PluginTest::mockServer).start();
 
         var mainModule = new MainModule(
-            new MockPlugin()
+            mock(Plugin.class)
         );
 
         Guice.createInjector(mainModule)
