@@ -24,6 +24,11 @@ public class PluginTest {
     }
 
     @Test
+    void planedError() {
+        throw new RuntimeException("It's ok error");
+    }
+
+    @Test
     public void testIt() {
         new Thread(PluginTest::mockServer).start();
 
