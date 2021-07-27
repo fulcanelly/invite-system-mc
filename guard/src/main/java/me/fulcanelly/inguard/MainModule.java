@@ -39,6 +39,10 @@ public class MainModule extends AbstractModule {
             .to(300);
 
         bindConstant()
+            .annotatedWith(Names.named("disable logger"))
+            .to(true);
+
+        bindConstant()
             .annotatedWith(Names.named("insurer.max_attempts"))
             .to(5);
 
