@@ -52,12 +52,6 @@ public abstract class PlayersSpecificScheduledTaskExecutor {
     PlayersLoopedPlayerExecutorLogger logger;
 
     @Inject
-    Server server;
-    
-    @Inject
-    InviteProtocol protocol;
-     
-    @Inject
     ProtocolRequestInsurer insurer;
 
     @Inject
