@@ -35,4 +35,4 @@ jobs:
       - name: Run Guard Tests
         run: |
           cd guard
-          mvn --batch-mode --update-snapshots verify
+          mvn verify
