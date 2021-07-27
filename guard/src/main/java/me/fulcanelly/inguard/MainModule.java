@@ -32,7 +32,6 @@ public class MainModule extends AbstractModule {
     public void configure() {
         bind(PlayerFlowPipe.class).toInstance(new PlayerFlowPipe());
         bind(Plugin.class).toInstance(plugin);
-        bind(Server.class).toInstance(plugin.getServer());
 
         bindConstant()
             .annotatedWith(Names.named("executor.interval"))
