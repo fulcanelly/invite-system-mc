@@ -34,7 +34,7 @@ public class PluginTest {
             .start();
     }
 
-    @Test @Disabled("In development")
+    @Test
     public void testIt() {
         new Thread(PluginTest::mockServer).start();
 
