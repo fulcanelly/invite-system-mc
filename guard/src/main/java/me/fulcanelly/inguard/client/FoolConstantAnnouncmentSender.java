@@ -2,8 +2,10 @@ package me.fulcanelly.inguard.client;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.TimeUnit;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -11,56 +13,35 @@ import com.google.inject.name.Named;
 import org.bukkit.entity.Player;
 
 import lombok.Data;
+import lombok.experimental.UtilityClass;
 import me.fulcanelly.inguard.spigot.PlayerSender;
 import me.fulcanelly.inguard.spigot.TitleSender;
 
-@Data
-class PlayerAssociatedTimer {
-    
-    Player player;
-    long expireTime = System.currentTimeMillis();
-    
-    PlayerAssociatedTimer(Player player, long expireTime) {
-        this.setPlayer(player);
-        this.setExpireTime(expireTime);
-    }
+@UtilityClass
+class TimerHelper {
 
-    boolean isExpired() {
+    boolean isExpired(long expireTime) {
         return System.currentTimeMillis() - expireTime >= 0;
     }
 
-    public void setExpireTime(long delay) {
-        this.expireTime = delay + System.currentTimeMillis();
+    public long getExpireTime(long delay) {
+        return delay + System.currentTimeMillis();
     }
 }
 
 class PlayerActionDelayControl {
 
-    Set<PlayerAssociatedTimer> timeControlList = 
-        Collections.newSetFromMap(
-            new WeakHashMap<>()
-        );
+    Map<Player, Long> expireMap = new WeakHashMap<>();
 
     @Inject @Named("sender.delay")
     long delay = 4001;
     
     public void entrollDelayFor(Player player) {
-        timeControlList.add(
-            new PlayerAssociatedTimer(player, delay)
-        );
+        expireMap.put(player, TimerHelper.getExpireTime(delay));
     }
 
     public boolean checkIsRightTimeToDoActionFor(Player player) {
-        var expireTime = timeControlList.stream()
-            .dropWhile(playerNtime -> playerNtime.getPlayer() != player)
-            .limit(1).findFirst();
-        
-        if (expireTime.isEmpty()) {
-            entrollDelayFor(player);
-            return true;
-        }
-
-        return expireTime.get().isExpired();
+        return TimerHelper.isExpired(expireMap.getOrDefault(player, 0l));
     }
 
 
