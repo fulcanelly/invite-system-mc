@@ -1,7 +1,9 @@
 package me.fulcanelly.inguard.client;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -33,8 +35,11 @@ class PlayerAssociatedTimer {
 }
 
 class PlayerActionDelayControl {
-    //todo: fix memory leak when players leave 
-    Set<PlayerAssociatedTimer> timeControlList = new HashSet<>();
+
+    Set<PlayerAssociatedTimer> timeControlList = 
+        Collections.newSetFromMap(
+            new WeakHashMap<>()
+        );
 
     @Inject @Named("sender.delay")
     long delay = 4001;
