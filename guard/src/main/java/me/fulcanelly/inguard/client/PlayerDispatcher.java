@@ -4,6 +4,7 @@ import com.google.common.io.*;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -93,12 +94,17 @@ class PlayerDispatcher {
     
     @SneakyThrows
     void passToMainServer(Player player) {
-        logger.logPassingPlayerToServer();
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("Connect");
-        out.writeUTF("main");
-        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
         pipe.remove(player);
+
+        //temporary attempt to fix unloading chunks 
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            logger.logPassingPlayerToServer();
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            out.writeUTF("Connect");
+            out.writeUTF("main");
+            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        }, 5);
+       
     }
 
     void onPlayerUnknown(Player player) {
