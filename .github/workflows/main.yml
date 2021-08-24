@@ -36,3 +36,9 @@ jobs:
         run: |
           cd guard
           mvn verify
+      - name: Upload jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: InviteGuard.jar
+          path: target/InviteGuard*.jar
+
