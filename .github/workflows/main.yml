@@ -40,5 +40,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: InviteGuard.jar
-          path: target/InviteGuard*.jar
+          path: guard/target/InviteGuard*.jar
 
