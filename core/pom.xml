@@ -120,12 +120,12 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
             <configuration>
-            <relocations>
+           <!-- <relocations>
                 <relocation>
                     <pattern>me.fulcanelly.clsql</pattern>
                     <shadedPattern>me.fulcanelly.clsql/ ^) ${clear-sql.version} shaded</shadedPattern>
                 </relocation>
-                </relocations>
+                </relocations>-->
             <filters>
                 <filter>
                 <artifact>*:*</artifact>
