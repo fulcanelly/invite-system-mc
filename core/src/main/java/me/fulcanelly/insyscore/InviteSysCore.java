@@ -30,6 +30,8 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.net.*;
 import java.io.*;
+
+import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fulcanelly.clsql.databse.SQLQueryHandler;
 import me.fulcanelly.clsql.stop.Stopable;
@@ -38,11 +40,20 @@ import me.fulcanelly.insyscore.database.InvitationsDatabase;
 import me.fulcanelly.insyscore.server.InviteCheckerServer;
 import java.sql.DriverManager;
 
-
+@Getter
 public class InviteSysCore extends JavaPlugin  {
 
 
     Stopable[] toStop = new Stopable[] {};
+    
+    InvitationsDatabase database;
+
+    @SneakyThrows
+    InvitationsDatabase setupInviteDatabase() {
+        return new InvitationsDatabase(
+            DriverManager.getConnection("jdbc:sqlite:" + this.getDataFolder() + "/db.sqlite3")
+        ); //initializiing database
+    }
     
     @Override
     @SneakyThrows
@@ -51,9 +62,7 @@ public class InviteSysCore extends JavaPlugin  {
 
         this.getLogger().warning("creatinmg database");
 
-        InvitationsDatabase database = new InvitationsDatabase(
-            DriverManager.getConnection("jdbc:sqlite:" + this.getDataFolder() + "/db.sqlite3")
-        ); //initializiing database
+        this.database = this.setupInviteDatabase();
         
         this.getLogger().info("seting up server");
         
