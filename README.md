@@ -15,10 +15,12 @@ So invite guard intended to solve this prolems.
 ## how to use
 
 ## Todo list
+- [ ] auto delete old records
+- [ ] turn to state based dispatching since it's much simple and less error prone  
 - [ ] make more configurable
     - [ ] make use of permissions
     - [ ] actions (kick/redirect/message/etc)
-- [ ] multi client servers
+- [x] multi client servers
 - [ ] improve command interface
 - [x] make more fault tolerant
     - by that i mean try to restore connection when one of servers fall down
