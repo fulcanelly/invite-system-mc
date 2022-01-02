@@ -64,14 +64,12 @@ public abstract class ProtocolHandler extends Thread {
     void processMethodForData(String symbol, Object... data) {
         var method = reactors.get(symbol);
         var result = method.invoke(this, data);
-        System.out.println("answering with : "+ result);
         out.println(result);
     }
 
     @SneakyThrows
     void loop() throws SocketTimeoutException {
         var symbol = in.readLine();
-        System.out.println("get input :" + symbol);
         if (symbol != null) {
             processMethodForData(symbol, parserArgumentsForMethod(symbol));
         } else {
@@ -81,8 +79,6 @@ public abstract class ProtocolHandler extends Thread {
 
     @SneakyThrows
     public void startProcessing() {
-        System.out.println(reactors);
-        System.out.println(suppliers);
 
         while (run) {
             try {
