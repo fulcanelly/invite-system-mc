@@ -20,6 +20,7 @@ import me.fulcanelly.inguard.spigot.TitleSender;
 @UtilityClass
 class TimerHelper {
 
+    
     boolean isExpired(long expireTime) {
         return System.currentTimeMillis() - expireTime >= 0;
     }
