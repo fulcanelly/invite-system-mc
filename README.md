@@ -15,7 +15,7 @@ So invite guard intended to solve this prolems.
 ## how to use
 
 ## Todo list
-- [ ] auto delete old records
+- [+] auto delete old records
 - [ ] turn to state based dispatching since it's much simple and less error prone  
 - [ ] make more configurable
     - [ ] make use of permissions
