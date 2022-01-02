@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import com.google.common.io.ByteArrayDataOutput;
@@ -37,6 +38,7 @@ import me.fulcanelly.clsql.databse.SQLQueryHandler;
 import me.fulcanelly.clsql.stop.Stopable;
 import me.fulcanelly.insyscore.command.UserInteractionHandler;
 import me.fulcanelly.insyscore.database.InvitationsDatabase;
+import me.fulcanelly.insyscore.database.InviteCleaner;
 import me.fulcanelly.insyscore.server.InviteCheckerServer;
 import java.sql.DriverManager;
 
@@ -49,12 +51,28 @@ public class InviteSysCore extends JavaPlugin  {
     InvitationsDatabase database;
 
     @SneakyThrows
-    InvitationsDatabase setupInviteDatabase() {
-        return new InvitationsDatabase(
-            DriverManager.getConnection("jdbc:sqlite:" + this.getDataFolder() + "/db.sqlite3")
-        ); //initializiing database
+    InvitationsDatabase setupInviteDatabase(SQLQueryHandler sql) {
+        return new InvitationsDatabase(sql);
+    }
+
+    @SneakyThrows    
+    SQLQueryHandler setupSQL() {
+        return new SQLQueryHandler(
+            DriverManager.getConnection("jdbc:sqlite:" + this.getDataFolder() + "/db.sqlite3"), false
+        );
     }
     
+    void tryCleanInvites(SQLQueryHandler sql) {
+        InviteCleaner.builder()
+                .sql(sql)
+                .server(getServer())
+                .invites(database)
+                .timeout(TimeUnit.HOURS.toMillis(24))
+                .logger(this.getLogger()).build()
+            .setup()
+            .removeUnplayed();
+    }
+
     @Override
     @SneakyThrows
     public void onEnable() {
@@ -62,14 +80,17 @@ public class InviteSysCore extends JavaPlugin  {
 
         this.getLogger().warning("creatinmg database");
 
-        this.database = this.setupInviteDatabase();
+        var sql = setupSQL();
+        this.database = this.setupInviteDatabase(sql);
         
         this.getLogger().info("seting up server");
         
+        //starting tcp server, currently on 6997 port
         var server = new InviteCheckerServer(
             new ServerSocket(6997), database, this.getLogger()
         );
-        //starting tcp server, currently on 6997 port
+
+        tryCleanInvites(sql);
 
         toStop = new Stopable [] { database, server };
         // is it needs comments ?

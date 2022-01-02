@@ -37,10 +37,10 @@ import me.fulcanelly.clsql.stop.Stopable;
 
 public class InvitationsDatabase implements Stopable {
 
-    SQLQueryHandler sql;
+    final SQLQueryHandler sql;
 
-    public InvitationsDatabase(Connection connection) {
-        sql = new SQLQueryHandler(connection, false);
+    public InvitationsDatabase(SQLQueryHandler sql) {
+        this.sql = sql;
         sql.syncExecuteUpdate("CREATE TABLE IF NOT EXISTS invitations(" +
             "beckoner STRING," +
             "invitee STRING," +
