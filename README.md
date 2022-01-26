@@ -31,5 +31,6 @@ So invite guard intended to solve this prolems.
 ## Probems
 
 
-- ~~title blinking
-- ~~warnging on login
+- <strike>title blinking</strike>
+- <strike>warnging on login</strike>
+
